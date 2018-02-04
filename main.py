@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import pygame
 from player import Player
-from level1 import Level_01
+from level import Level
 
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 1000
@@ -52,7 +52,7 @@ def main():
 
         player = Player(speed_x) 
 
-        level = Level_01(player)
+        level = Level(player)
 
         spriteList = pygame.sprite.Group()
         player.level = level
@@ -106,6 +106,7 @@ def main():
             spriteList.update() #updates to move things
             level.update()
 
+            #Check For Loss
             car_hit_list = pygame.sprite.spritecollide(player, level.car_list, False)  #check for collisions with car, log, water
             water_hit_list = pygame.sprite.spritecollide(player, level.water_list, False)
             log_hit_list = pygame.sprite.spritecollide(player, level.log_list, False) 
@@ -122,7 +123,7 @@ def main():
                 gameOver = True
                 splash.play()
  
-        # drawing code 
+        #Draw 
             if not gameOver:
                 level.draw(screen)
                 spriteList.draw(screen)
