@@ -1,26 +1,34 @@
 import random
 import pygame
 
-BROWN = (107,45,0)
-SCREEN_WIDTH = 1400
-SCREEN_HEIGHT = 1000
-
+"""
+Represents a log that allows the user to cross water
+"""
 class Log(pygame.sprite.Sprite):
-    """DRAW A LOG"""
+    BROWN = (107,45,0)
+    
+    """
+    Initialize a log
+    @param speed: the speed in pixels/frame of the car
+    """
     def __init__(self, speed):
         super(Log, self).__init__()
         self.speed = speed   
         self.image = pygame.Surface([80, 50])
-        self.image.fill(BROWN)
+        self.image.fill(Log.BROWN)
         #self.image.set_colorkey(BROWN)
         self.rect = self.image.get_rect()
-         
-    def update(self):
-        """MOVE THE LOG"""
+    
+    """
+    Moves the log at a rate of self.speed
+    The log will loop back if it goes off screen
+    @param sw: the screen width in pixels
+    """     
+    def update(self, sw):
         self.rect.x -= self.speed
         
         if self.rect.x <= -80:
-            self.rect.x = random.randrange(SCREEN_WIDTH, SCREEN_WIDTH + 300)
+            self.rect.x = random.randrange(sw, sw + 300)
             
-        elif self.rect.x > SCREEN_WIDTH + 350:
+        elif self.rect.x > sw + 350:
             self.rect.x = -70
