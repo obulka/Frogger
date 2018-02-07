@@ -36,9 +36,8 @@ class Road(pygame.sprite.Sprite):
             car.kill()
     
     """
-    Updates the positions of the cars driving on this road
+    Updates the positions of the cars driving on this road to follow the road as it scrolls
     """               
-    def update(self, sw):
+    def update(self):
         for car in self.cars:
-            car.update(sw)
             car.rect.y = self.rect.y

@@ -36,9 +36,8 @@ class Water(pygame.sprite.Sprite):
             log.kill()
     
     """
-    Updates the positions of the logs floating on this water
+    Updates the positions of the logs floating on this water to move as it scrolls
     """     
-    def update(self, sw):
+    def update(self):
         for log in self.logs:
-            log.update(sw)
             log.rect.y = self.rect.y

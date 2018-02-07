@@ -145,7 +145,8 @@ class GC():
             self.player.rect.y = GC.SCREEN_HEIGHT - 145
             self.shiftWorld(-diff)           
         
-        self.surfaces.update(GC.SCREEN_WIDTH)
+        self.logs.update(GC.SCREEN_WIDTH)
+        self.cars.update(GC.SCREEN_WIDTH)
         self.playerList.update()
 
         #Check For Loss
@@ -184,7 +185,7 @@ class GC():
             return surface
         surface.rect.y = y
         surface.rect.x = 0
-        surface.update(GC.SCREEN_WIDTH)
+        surface.update()
     
     """
     Scrolls the world by delY pixels except for the player
@@ -201,7 +202,7 @@ class GC():
             
         self.getNewSurface(self.player.rect.y - GC.SCREEN_HEIGHT - GC.SURF_HEIGHT)
                 
-        self.surfaces.update(GC.SCREEN_WIDTH)
+        self.surfaces.update()
     
     """
     Draws all the sprites and the score to the screen
