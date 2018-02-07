@@ -13,18 +13,35 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
         
+        self.change_x = 0
+        self.change_y = 0
+        self.change_log = 3
+        
+        self.rotation = 0 #track the player rotation
+        
         self.image = pygame.Surface([Player.size,Player.size])
         self.image.fill(Player.WHITE)
         self.image.set_colorkey(Player.WHITE)
         self.rect = self.image.get_rect()
-        self.change_x = 0
-        self.change_y = 0
-        self.change_log = 3
-            
+        
+        #draw code 
         pygame.draw.circle(self.image, Player.FROG, [Player.size/2,Player.size/8], Player.size/8)
         pygame.draw.line(self.image, Player.FROG, [Player.size/10,Player.size/10],[Player.size,Player.size], Player.size/5)
         pygame.draw.line(self.image, Player.FROG, [Player.size*9/10,Player.size/10],[0,Player.size], Player.size/5)
         pygame.draw.ellipse(self.image, Player.SHELL, [Player.size/8,Player.size/4,Player.size*3/4,Player.size*3/4])
+    
+    """
+    Rotates the image of our player by angle ccw
+    @param angle: the angle in degrees to rotate counter clockwise
+    """
+    def rot_center(self, angle):
+        self.rotation += angle
+        
+        orig_rect = self.image.get_rect()
+        rot_image = pygame.transform.rotate(self.image, angle)
+        rot_rect = orig_rect.copy()
+        rot_rect.center = rot_image.get_rect().center
+        self.image = rot_image.subsurface(rot_rect).copy()
     
     """
     Moves the player by the amount contained in self.change_x
@@ -41,13 +58,9 @@ class Player(pygame.sprite.Sprite):
             
         else:
             self.change_x = -3
-        
-        self.image.fill(Player.WHITE)
-        self.image.set_colorkey(Player.WHITE)
-        pygame.draw.circle(self.image, Player.FROG, [6,20], 6)
-        pygame.draw.line(self.image, Player.FROG, [4,4],[40,40], 7)
-        pygame.draw.line(self.image, Player.FROG, [4,36],[40,0], 7)
-        pygame.draw.ellipse(self.image, Player.SHELL, [10,5,30,30])
+
+        if self.rotation != 90:
+            self.rot_center(90 - self.rotation)
     
     """
     Prepares the player to move right
@@ -59,27 +72,17 @@ class Player(pygame.sprite.Sprite):
         else:
             self.change_x = 3
 
-        self.image.fill(Player.WHITE)
-        self.image.set_colorkey(Player.WHITE)
+        if self.rotation != -90:
+            self.rot_center(-(90 + self.rotation))
         
-        pygame.draw.circle(self.image, Player.FROG, [34,20], 6)
-        pygame.draw.line(self.image, Player.FROG, [0,0],[36,36], 7)
-        pygame.draw.line(self.image, Player.FROG, [0,40],[36,4], 7)
-        pygame.draw.ellipse(self.image, Player.SHELL, [0,5,30,30])
-    
     """
     Move the player forward
     """        
     def go_forward(self):
-        self.image.fill(Player.WHITE)
-        self.image.set_colorkey(Player.WHITE)
-        
-        pygame.draw.circle(self.image, Player.FROG, [20,6], 6)
-        pygame.draw.line(self.image, Player.FROG, [4,4],[40,40], 7)
-        pygame.draw.line(self.image, Player.FROG, [36,4],[0,40], 7)
-        pygame.draw.ellipse(self.image, Player.SHELL, [5,10,30,30])
-        
         self.rect.y -= 50
+        
+        if self.rotation != 0:
+            self.rot_center(-self.rotation)
     
     """
     Stop the players movement

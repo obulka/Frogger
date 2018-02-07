@@ -16,6 +16,8 @@ class GC():
     SCREEN_HEIGHT = 1000
     
     NUM_SURFACES = 20
+    PLAYER_HEIGHT_LIMIT = 3 #spaces plaer can move before world moves
+    
     SURF_HEIGHT = SCREEN_HEIGHT/NUM_SURFACES
     #Colors
     BLACK = (0,0,0)
@@ -140,10 +142,8 @@ class GC():
         elif self.player.rect.x > GC.SCREEN_WIDTH - Player.size:
             self.player.rect.x = GC.SCREEN_WIDTH - Player.size
 
-        if self.player.rect.y < GC.SCREEN_HEIGHT - 145: #moves the world if player moves above a point
-            diff = self.player.rect.y - GC.SCREEN_HEIGHT + 145
-            self.player.rect.y = GC.SCREEN_HEIGHT - 145
-            self.shiftWorld(-diff)           
+        if self.player.rect.y < GC.SCREEN_HEIGHT - 3*GC.SURF_HEIGHT: #moves the world if player moves above a point
+            self.shiftWorld()           
         
         self.logs.update(GC.SCREEN_WIDTH)
         self.cars.update(GC.SCREEN_WIDTH)
@@ -188,11 +188,14 @@ class GC():
         surface.update()
     
     """
-    Scrolls the world by delY pixels except for the player
+    Scrolls the world by one surface height
     Deletes any surface that goes off screen and initializes a new, random one
     @param delY: the number of pixels to shift the world
     """    
-    def shiftWorld(self, delY):
+    def shiftWorld(self):
+        delY = -(self.player.rect.y - GC.SCREEN_HEIGHT + GC.PLAYER_HEIGHT_LIMIT*GC.SURF_HEIGHT)
+        self.player.rect.y = GC.SCREEN_HEIGHT - GC.PLAYER_HEIGHT_LIMIT*GC.SURF_HEIGHT
+        
         for s in self.surfaces:
             s.rect.y += delY
             
@@ -219,12 +222,4 @@ class GC():
             scoreText = font.render("Score: " + str(self.score) + "  Highscore: " + str(self.highscore), True, GC.WHITE)
             self.screen.blit(scoreText, [5,5])      
     
-        pygame.display.flip()
-        
-        
-        
-        
-        
-        
-        
-        
+        pygame.display.flip()       
