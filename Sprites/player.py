@@ -8,9 +8,7 @@ class Player(pygame.sprite.Sprite):
     FROG = (252,255,214)
     SHELL = (214,34,101)
     
-    size = 40
-    
-    def __init__(self):
+    def __init__(self, surface_height):
         super(Player, self).__init__()
         
         self.change_x = 0
@@ -18,17 +16,19 @@ class Player(pygame.sprite.Sprite):
         self.change_log = 3
         
         self.rotation = 0 #track the player rotation
-        
-        self.image = pygame.Surface([Player.size,Player.size])
+        self.surface_height = surface_height
+        self.size = self.surface_height*4/5
+                
+        self.image = pygame.Surface([self.size,self.size])
         self.image.fill(Player.WHITE)
         self.image.set_colorkey(Player.WHITE)
         self.rect = self.image.get_rect()
         
         #draw code 
-        pygame.draw.circle(self.image, Player.FROG, [Player.size/2,Player.size/8], Player.size/8)
-        pygame.draw.line(self.image, Player.FROG, [Player.size/10,Player.size/10],[Player.size,Player.size], Player.size/5)
-        pygame.draw.line(self.image, Player.FROG, [Player.size*9/10,Player.size/10],[0,Player.size], Player.size/5)
-        pygame.draw.ellipse(self.image, Player.SHELL, [Player.size/8,Player.size/4,Player.size*3/4,Player.size*3/4])
+        pygame.draw.circle(self.image, Player.FROG, [self.size/2,self.size/8], self.size/8)
+        pygame.draw.line(self.image, Player.FROG, [self.size/10,self.size/10],[self.size,self.size], self.size/5)
+        pygame.draw.line(self.image, Player.FROG, [self.size*9/10,self.size/10],[0,self.size], self.size/5)
+        pygame.draw.ellipse(self.image, Player.SHELL, [self.size/8,self.size/4,self.size*3/4,self.size*3/4])
     
     """
     Rotates the image of our player by angle ccw
@@ -66,8 +66,8 @@ class Player(pygame.sprite.Sprite):
     Prepares the player to move right
     """    
     def go_right(self, sw):
-        if self.rect.x > (sw - 50):
-            self.rect.x = sw - 50
+        if self.rect.x > (sw - self.surface_height):
+            self.rect.x = sw - self.surface_height
             
         else:
             self.change_x = 3
@@ -79,7 +79,7 @@ class Player(pygame.sprite.Sprite):
     Move the player forward
     """        
     def go_forward(self):
-        self.rect.y -= 50
+        self.rect.y -= self.surface_height
         
         if self.rotation != 0:
             self.rot_center(-self.rotation)

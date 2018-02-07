@@ -71,7 +71,7 @@ class GC():
             self.theme.play() #bongos
             self.gameOver = False #resets when player loses
             self.score = 0
-            self.player = Player()
+            self.player = Player(GC.SURF_HEIGHT)
             self.playerList.add(self.player)
             self.spriteList.add(self.player)
             
@@ -79,8 +79,8 @@ class GC():
                 self.getNewSurface(yLoc) 
                 yLoc += GC.SURF_HEIGHT
             
-            self.player.rect.x = GC.SCREEN_WIDTH/2 - Player.size/2 #start position
-            self.player.rect.y = GC.SCREEN_HEIGHT - 50
+            self.player.rect.x = GC.SCREEN_WIDTH/2 - self.player.size/2 #start position
+            self.player.rect.y = GC.SCREEN_HEIGHT - GC.SURF_HEIGHT
 
             while not self.gameOver:
                 self.processInputs()   
@@ -139,8 +139,8 @@ class GC():
     def processLogic(self):
         if self.player.rect.x < 0:
             self.player.rect.x = 0
-        elif self.player.rect.x > GC.SCREEN_WIDTH - Player.size:
-            self.player.rect.x = GC.SCREEN_WIDTH - Player.size
+        elif self.player.rect.x > GC.SCREEN_WIDTH - self.player.size:
+            self.player.rect.x = GC.SCREEN_WIDTH - self.player.size
 
         if self.player.rect.y < GC.SCREEN_HEIGHT - 3*GC.SURF_HEIGHT: #moves the world if player moves above a point
             self.shiftWorld()           

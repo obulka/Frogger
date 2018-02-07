@@ -8,6 +8,9 @@ Road surface type
 class Road(pygame.sprite.Sprite):
     GRAY = (74,74,74)
     
+    max_car_speed = 3
+    min_car_speed = 1
+    
     def __init__(self, width, height):
         super(Road, self).__init__()
         self.image = pygame.Surface([width, height])
@@ -15,14 +18,12 @@ class Road(pygame.sprite.Sprite):
         self.image.fill(Road.GRAY)
         
         self.cars = pygame.sprite.Group()
-        self.speed = random.randrange(-3,3) #gives cars different speeds
+        
+        self.speed = (random.uniform(0,1)*(Road.max_car_speed - Road.min_car_speed) + Road.min_car_speed)*(-1)**random.randrange(2)
         self.carSeparation = random.randrange(190,400) # gives a distance between cars
         
-        if self.speed == 0:
-            self.speed = random.randrange(-1,2,2)
-        
         for d in range(0, width, self.carSeparation): #makes some cars
-            car = Car(self.speed)
+            car = Car(self.speed, height)
             car.rect.y = self.rect.y
             car.rect.x = d
             

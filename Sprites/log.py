@@ -11,10 +11,11 @@ class Log(pygame.sprite.Sprite):
     Initialize a log
     @param speed: the speed in pixels/frame of the car
     """
-    def __init__(self, speed):
+    def __init__(self, speed, surface_height):
         super(Log, self).__init__()
-        self.speed = speed   
-        self.image = pygame.Surface([80, 50])
+        self.speed = speed
+        self.length = surface_height*8/5  
+        self.image = pygame.Surface([self.length, surface_height])
         self.image.fill(Log.BROWN)
         #self.image.set_colorkey(BROWN)
         self.rect = self.image.get_rect()
@@ -27,7 +28,7 @@ class Log(pygame.sprite.Sprite):
     def update(self, sw):
         self.rect.x -= self.speed
         
-        if self.rect.x <= -80:
+        if self.rect.x <= -self.length:
             self.rect.x = random.randrange(sw, sw + 300)
             
         elif self.rect.x > sw + 350:
