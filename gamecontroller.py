@@ -1,7 +1,7 @@
 import pygame
-from player import Player
-from road import Road
-from water import Water
+from Sprites.player import Player
+from Sprites.road import Road
+from Sprites.water import Water
 import random
 
 """
@@ -38,9 +38,9 @@ class GC():
     def __init__(self):
         pygame.init()
         
-        self.splash = pygame.mixer.Sound("splash.wav")
-        self.honk = pygame.mixer.Sound("honk.wav")
-        self.theme = pygame.mixer.Sound("bongos.wav")
+        self.splash = pygame.mixer.Sound("Audio/splash.wav")
+        self.honk = pygame.mixer.Sound("Audio/honk.wav")
+        self.theme = pygame.mixer.Sound("Audio/bongos.wav")
         
         self.screen = pygame.display.set_mode((GC.SCREEN_WIDTH, GC.SCREEN_HEIGHT))
         
