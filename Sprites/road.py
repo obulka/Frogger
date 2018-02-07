@@ -19,7 +19,7 @@ class Road(pygame.sprite.Sprite):
         
         self.cars = pygame.sprite.Group()
         
-        self.speed = (random.uniform(0,1)*(Road.max_car_speed - Road.min_car_speed) + Road.min_car_speed)*(-1)**random.randrange(2)
+        self.speed = (random.uniform(0,1)*(Road.max_car_speed - Road.min_car_speed) + Road.min_car_speed)*(-1)**random.randrange(2) #random speed and direction
         self.carSeparation = random.randrange(190,400) # gives a distance between cars
         
         for d in range(0, width, self.carSeparation): #makes some cars

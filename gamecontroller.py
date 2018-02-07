@@ -19,18 +19,9 @@ class GC():
     PLAYER_HEIGHT_LIMIT = 3 #spaces plaer can move before world moves
     
     SURF_HEIGHT = SCREEN_HEIGHT/NUM_SURFACES
-    #Colors
-    BLACK = (0,0,0)
-    WHITE = (255,255,255)
+    
+    #Color of grass
     GREEN = (34,171,15)
-    BLUE = (70,0,222)
-    TURQ = (0,191,172)
-    PURP = (174,0,255)
-    GRAY = (74,74,74)
-    BROWN = (107,45,0)
-    FROG = (252,255,214)
-    SHELL = (214,34,101)
-    WINDOW = (0,0,255)
     
     FRAME_RATE = 60
     
@@ -75,6 +66,7 @@ class GC():
             self.playerList.add(self.player)
             self.spriteList.add(self.player)
             
+            # Initialize surfaces
             for yLoc in range(-3*GC.SURF_HEIGHT, GC.SCREEN_HEIGHT - 2*GC.SURF_HEIGHT, GC.SURF_HEIGHT):
                 self.getNewSurface(yLoc) 
                 yLoc += GC.SURF_HEIGHT

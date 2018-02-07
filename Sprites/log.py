@@ -29,7 +29,7 @@ class Log(pygame.sprite.Sprite):
         self.rect.x -= self.speed
         
         if self.rect.x <= -self.length:
-            self.rect.x = random.randrange(sw, sw + 300)
+            self.rect.x = sw
             
-        elif self.rect.x > sw + 350:
+        elif self.rect.x > sw + self.length:
             self.rect.x = -70

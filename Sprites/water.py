@@ -20,7 +20,7 @@ class Water(pygame.sprite.Sprite):
         self.logs = pygame.sprite.Group()
         self.logSeparation = random.randrange(height*8/5,height*8)
         
-        self.speed = (random.uniform(0,1)*(Water.max_log_speed - Water.min_log_speed) + Water.min_log_speed)*(-1)**random.randrange(2)
+        self.speed = (random.uniform(0,1)*(Water.max_log_speed - Water.min_log_speed) + Water.min_log_speed)*(-1)**random.randrange(2) #random speed and direction
                      
         for d in range(0, width, self.logSeparation): #makes logs
             log = Log(self.speed, height)
